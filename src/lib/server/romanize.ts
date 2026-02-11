@@ -1,6 +1,7 @@
 import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
-import path from 'path';
+
+const dictPath = process.cwd() + '/node_modules/kuromoji/dict';
 
 let kuroshiro: any = null;
 let initialized = false;
@@ -16,17 +17,10 @@ async function getKuroshiro() {
 	initPromise = (async () => {
 		try {
 			const k = new Kuroshiro();
-			const dictPath = path.join(
-				process.cwd(),
-				'node_modules',
-				'kuromoji',
-				'dict'
-			);
 			await k.init(new KuromojiAnalyzer({ dictPath }));
 			kuroshiro = k;
 			initialized = true;
 		} catch (e) {
-			// Reset so next call can retry
 			initPromise = null;
 			throw e;
 		}
@@ -37,7 +31,6 @@ async function getKuroshiro() {
 }
 
 export async function romanize(text: string): Promise<string> {
-	// If text has no Japanese characters, return as-is
 	if (!/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/.test(text)) {
 		return text;
 	}
@@ -45,7 +38,6 @@ export async function romanize(text: string): Promise<string> {
 	const k = await getKuroshiro();
 	let result = await k.convert(text, { to: 'romaji', mode: 'spaced', romajiSystem: 'hepburn' });
 
-	// Expand macron vowels to double vowels (standard Japanese romanization)
 	result = result
 		.replace(/ā/g, 'aa').replace(/Ā/g, 'Aa')
 		.replace(/ī/g, 'ii').replace(/Ī/g, 'Ii')
@@ -53,6 +45,5 @@ export async function romanize(text: string): Promise<string> {
 		.replace(/ē/g, 'ee').replace(/Ē/g, 'Ee')
 		.replace(/ō/g, 'ou').replace(/Ō/g, 'Ou');
 
-	// Capitalize first letter of each word
 	return result.replace(/\b\w/g, (c: string) => c.toUpperCase());
 }
