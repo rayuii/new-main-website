@@ -5,7 +5,10 @@ dotenv.config();
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [sveltekit()]
+	plugins: [sveltekit()],
+	ssr: {
+		noExternal: ['kuroshiro', 'kuroshiro-analyzer-kuromoji', 'kuromoji']
+	}
 };
 
 export default config;
