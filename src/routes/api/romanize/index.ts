@@ -1,10 +1,6 @@
 import { romanize } from '$lib/server/romanize';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const config = {
-	runtime: 'nodejs20.x'
-};
-
 export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const { text } = await request.json();
