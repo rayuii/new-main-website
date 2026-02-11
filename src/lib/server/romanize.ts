@@ -1,5 +1,8 @@
-import Kuroshiro from 'kuroshiro';
-import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const Kuroshiro = require('kuroshiro').default ?? require('kuroshiro');
+const KuromojiAnalyzer = require('kuroshiro-analyzer-kuromoji').default ?? require('kuroshiro-analyzer-kuromoji');
 
 const dictPath = process.cwd() + '/node_modules/kuromoji/dict';
 
