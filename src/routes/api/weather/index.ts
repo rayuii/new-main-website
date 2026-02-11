@@ -10,7 +10,7 @@ export async function GET() {
 		}
 
 		const url = new URL('https://api.openweathermap.org/data/2.5/weather');
-		url.searchParams.set('q', 'Vancouver');
+		url.searchParams.set('q', 'Amsterdam');
 		url.searchParams.set('appid', WEATHER_API_KEY);
 		url.searchParams.set('units', 'metric');
 
@@ -39,7 +39,9 @@ export async function GET() {
 			description: data.weather[0].description,
 			icon: data.weather[0].icon,
 			humidity: data.main.humidity,
-			wind_speed: Math.round(data.wind.speed * 3.6) // Convert m/s to km/h
+			wind_speed: Math.round(data.wind.speed * 3.6),
+			city: data.name || 'Vancouver',
+			country: data.sys?.country || 'CA'
 		};
 
 		return new Response(JSON.stringify(weather), {

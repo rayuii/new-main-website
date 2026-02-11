@@ -22,7 +22,7 @@
 			year: '2026',
 			events: [
 				{ name: '5EC Minor League', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2160276' },
-				{ name: 'Battle of The Box 2026', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2013000' },
+				{ name: 'Battle of The Box 2026', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2178368?n=1' },
 				{ name: 'Fun Awesome Relax Tournament', role: 'referee/commentator/playtester', link: 'http://osu.ppy.sh/community/forums/topics/2166712' }
 			]
 		}

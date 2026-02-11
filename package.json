@@ -37,8 +37,12 @@
 	"dependencies": {
 		"@spotify/web-api-ts-sdk": "^1.2.0",
 		"dotenv": "^17.2.4",
+		"kuroshiro": "^1.2.0",
+		"kuroshiro-analyzer-kuromoji": "^1.1.0",
 		"luxon": "^3.0.1",
+		"mysql2": "^3.17.0",
 		"node-fetch": "^2.7.0",
-		"sk-lanyard": "^0.1.5"
+		"sk-lanyard": "^0.1.5",
+		"uuid": "^13.0.0"
 	}
 }

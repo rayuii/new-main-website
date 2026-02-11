@@ -9,6 +9,7 @@
 	import Language from '$lib/components/Language.svelte';
 	import ProjectItem from '$lib/components/ProjectItem.svelte';
 	import Workspace from '$lib/components/Workspace.svelte';
+	import Terminal from '$lib/components/Terminal.svelte';
 	import { getCodeData, getOtherActivities } from '$lib/rpcUtils';
 	import { useLanyard } from 'sk-lanyard';
 	import { onMount } from 'svelte';
@@ -20,22 +21,16 @@
 	let userLocation = '';
 	let targetLocation = '';
 
-	const IPGEOLOCATION_API_KEY = '4466ecd839f94955ba57161988949115';
 
 	async function getLocationFromTimezone(tz: string): Promise<string> {
 		try {
 			// Convert timezone to a location string (e.g., "America/Vancouver" -> "Vancouver")
 			const locationQuery = tz.split('/').pop()?.replace(/_/g, ' ') || tz;
-			
-			const response = await fetch(
-				`https://api.ipgeolocation.io/v2/timezone?apiKey=${IPGEOLOCATION_API_KEY}&location=${locationQuery}`
-			);
+			const response = await fetch(`/api/timezone?location=${encodeURIComponent(locationQuery)}`);
 			const data = await response.json();
-			
 			const city = data.location?.city;
 			const state = data.location?.state_prov;
 			const country = data.location?.country_name;
-			
 			return [city, state, country].filter(Boolean).join(', ');
 		} catch (e) {
 			console.error('Error fetching location:', e);
@@ -135,6 +130,58 @@
 	let weatherLoading = true;
 	let lastPlayedTrack: any = null;
 
+	// Romanization cache
+	let romanizedCache: Record<string, string> = {};
+	
+	async function romanizeText(text: string): Promise<string> {
+		if (!text) return text;
+		if (romanizedCache[text]) return romanizedCache[text];
+		// Only romanize if text contains Japanese characters
+		if (!/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/.test(text)) {
+			romanizedCache[text] = text;
+			return text;
+		}
+		try {
+			const res = await fetch('/api/romanize', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ text })
+			});
+			if (res.ok) {
+				const data = await res.json();
+				romanizedCache[text] = data.romanized;
+				return data.romanized;
+			}
+		} catch (e) {
+			console.error('Romanize failed:', e);
+		}
+		romanizedCache[text] = text;
+		return text;
+	}
+
+	// Reactive romanized Spotify names
+	let romanizedSong = '';
+	let romanizedArtist = '';
+	let romanizedAlbum = '';
+	let romanizedLastSong = '';
+	let romanizedLastArtist = '';
+
+	$: if ($data?.spotify?.song) {
+		romanizeText($data.spotify.song).then(r => romanizedSong = r);
+	}
+	$: if ($data?.spotify?.artist) {
+		romanizeText($data.spotify.artist).then(r => romanizedArtist = r);
+	}
+	$: if ($data?.spotify?.album) {
+		romanizeText($data.spotify.album).then(r => romanizedAlbum = r);
+	}
+	$: if (lastPlayedTrack?.track?.name) {
+		romanizeText(lastPlayedTrack.track.name).then(r => romanizedLastSong = r);
+	}
+	$: if (lastPlayedTrack?.track?.artists) {
+		romanizeText(lastPlayedTrack.track.artists.map(a => a.name).join(', ')).then(r => romanizedLastArtist = r);
+	}
+
 	onMount(async () => {
 		try {
 			const response = await fetch('/api/weather');
@@ -183,11 +230,11 @@
 					<div class="absolute bottom-0 right-0 w-3 h-3 {statusColor} rounded-full border-2 border-ocean-100 dark:border-ocean-900"></div>
 				</div>
 			{/if}
-			<h1 class="text-ocean-700 dark:text-ocean-300 break-words min-w-0 flex items-center gap-1 flex-wrap">
-				<span class="dark:text-ocean-blue flex items-center gap-2">
+			<h1 class="text-ocean-900 dark:text-ocean-300 break-words min-w-0 flex items-center gap-1 flex-wrap">
+				<span class="text-ocean-900 dark:text-ocean-blue flex items-center gap-2">
 					sundei
 					{#if clanBadge && $data?.discord_user?.primary_guild?.tag}
-						<span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-xs font-medium bg-ocean-800 border border-ocean-600 rounded text-ocean-100">
+						<span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-xs font-medium bg-ocean-200 dark:bg-ocean-800 border border-ocean-300 dark:border-ocean-600 rounded text-ocean-900 dark:text-ocean-100">
 							<img 
 								src={clanBadge} 
 								alt="Clan badge"
@@ -204,7 +251,7 @@
 		</div>
 		<div>
 			<h1 class="text-ocean-900 dark:text-ocean-100">wip</h1>
-			<ul class="list-disc list-inside text-ocean-700 dark:text-ocean-blue">
+			<ul class="list-disc list-inside text-ocean-800 dark:text-ocean-blue">
 				<ProjectItem
 					href="https://github.com/rayuii/winpowershell"
 					name="scripts"
@@ -224,7 +271,7 @@
 		</div>
 		<div>
 			<h1 class="text-ocean-900 dark:text-ocean-100">projects</h1>
-			<ul class="list-disc list-inside text-ocean-700 dark:text-ocean-blue">
+			<ul class="list-disc list-inside text-ocean-800 dark:text-ocean-blue">
 				<ProjectItem
 					href="https://github.com/rayuii/skriptlinux"
 					name="linux scripts"
@@ -244,7 +291,7 @@
 		</div>
 		<div>
 			<h1 class="text-ocean-900 dark:text-ocean-100">links</h1>
-			<ul class="list-disc list-inside text-ocean-700 dark:text-ocean-blue">
+			<ul class="list-disc list-inside text-ocean-800 dark:text-ocean-blue">
 				<ProjectItem href="https://twitter.com/deprivedsundei" name="twitter" />
 				<ProjectItem href="https://github.com/rayuii" name="github" />
 				<ProjectItem href="mailto:sundei@sundei.ee" name="email" />
@@ -255,14 +302,19 @@
 		<div class="mt-4 w-full sm:w-96">
 			<h2 class="text-ocean-900 dark:text-ocean-100 text-lg mb-2">kwan wisdom</h2>
 			<div class="border border-ocean-300 dark:border-ocean-700 rounded p-4">
-				<p class="text-ocean-900 dark:text-ocean-100 text-sm italic">"{currentQuote}"</p>
+				<p class="text-ocean-800 dark:text-ocean-100 text-sm italic">"{currentQuote}"</p>
 				<button 
 					on:click={newQuote}
-					class="mt-3 text-ocean-700 dark:text-ocean-400 hover:text-ocean-900 dark:hover:text-ocean-100 text-xs underline"
+					class="mt-3 text-ocean-600 dark:text-ocean-400 hover:text-ocean-900 dark:hover:text-ocean-100 text-xs underline"
 				>
 					new quote
 				</button>
 			</div>
+		</div>
+
+		<!-- Interactive Terminal -->
+		<div class="mt-2">
+			<Terminal />
 		</div>
 	</div>
 	<div
@@ -320,12 +372,12 @@
 							href="https://open.spotify.com/track/{$data.spotify?.track_id}"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-ocean-900 dark:text-ocean-100 hover:underline"
-						>
-							{$data.spotify?.song}
-						</a>
-						<span class="text-ocean-800 dark:text-ocean-300">{$data.spotify?.artist}</span>
-						<span class="text-ocean-700 dark:text-ocean-400">{$data.spotify?.album}</span>
+								class="text-ocean-900 dark:text-ocean-100 hover:underline"
+							>
+								{romanizedSong || $data.spotify?.song}
+							</a>
+							<span class="text-ocean-800 dark:text-ocean-300">{romanizedArtist || $data.spotify?.artist}</span>
+							<span class="text-ocean-700 dark:text-ocean-400">{romanizedAlbum || $data.spotify?.album}</span>
 					</div>
 				</div>
 				{#if $data.spotify?.timestamps}
@@ -365,10 +417,10 @@
 							rel="noopener noreferrer"
 							class="text-ocean-900 dark:text-ocean-100 hover:underline"
 						>
-							{lastPlayedTrack.track?.name}
+							{romanizedLastSong || lastPlayedTrack.track?.name}
 						</a>
 						<span class="text-ocean-800 dark:text-ocean-300">
-							{lastPlayedTrack.track?.artists?.map(a => a.name).join(', ')}
+							{romanizedLastArtist || lastPlayedTrack.track?.artists?.map(a => a.name).join(', ')}
 						</span>
 						<span class="text-ocean-700 dark:text-ocean-400 text-sm">
 							{new Date(lastPlayedTrack.played_at).toLocaleTimeString()}

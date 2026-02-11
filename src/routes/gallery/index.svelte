@@ -35,8 +35,8 @@
 </script>
 
 <svelte:head>
-	<title>gallery - sundei</title>
-	<meta name="og:title" content="gallery - sundei" />
+	<title>gallery</title>
+	<meta name="og:title" content="gallery" />
 	<meta name="description" content="photos and visual works" />
 	<meta name="og:description" content="photos and visual works" />
 	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9f0f5" />

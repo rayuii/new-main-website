@@ -1,0 +1,8 @@
+name = "portfolio"
+type = "javascript"
+compatibility_date = "2026-02-11"
+main = "src/index.ts"
+
+[[kv_namespaces]]
+binding = "GUESTBOOK_KV"
+id = "ea5c4f6df66d488c88ac6fb979e0e648"

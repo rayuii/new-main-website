@@ -17,6 +17,11 @@
 html {
 	scrollbar-color: hsla(0, 0%, 100%, 0.289) transparent;
 	scrollbar-width: thin;
+	cursor: none;
+}
+
+*, *::before, *::after {
+	cursor: none !important;
 }
 
 ::-webkit-scrollbar {

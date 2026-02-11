@@ -5,10 +5,10 @@
 </script>
 
 <li>
-	<a {href} target="_blank" rel="noreferrer noopener" class="dark:text-ocean-300 underline"
+	<a {href} target="_blank" rel="noreferrer noopener" class="text-ocean-800 dark:text-ocean-300 underline hover:text-ocean-900 dark:hover:text-ocean-100"
 		>{name}</a
 	>
 	{#if description}
-		<span class="dark:text-ocean-400">- {description}</span>
+		<span class="text-ocean-600 dark:text-ocean-400">– {description}</span>
 	{/if}
 </li>
