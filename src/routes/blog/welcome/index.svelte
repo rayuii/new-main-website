@@ -90,7 +90,7 @@
 				class="w-full cursor-pointer hover:opacity-90 transition-opacity"
 			>
 				<img 
-					src="https://media.discordapp.net/attachments/828357199872524288/1464989730012663902/IMG_6723.jpg?ex=698b4001&is=6989ee81&hm=6af313c79c8d0563bd7c2d2013deb4a0efbd3619de0de3dabaa8007ce9fc6610&=&format=webp&width=1522&height=856"
+					src="https://cdn.sundei.eu/desk.jpg"
 					alt="my setup"
 					class="w-full"
 				/>
@@ -115,7 +115,7 @@
 						×
 					</button>
 					<img 
-						src="https://media.discordapp.net/attachments/828357199872524288/1464989730012663902/IMG_6723.jpg?ex=698b4001&is=6989ee81&hm=6af313c79c8d0563bd7c2d2013deb4a0efbd3619de0de3dabaa8007ce9fc6610&=&format=webp&width=1522&height=856"
+						src="https://cdn.sundei.eu/desk.jpg"
 						alt="my setup"
 						class="max-h-[90vh] max-w-[90vw] rounded object-contain"
 					/>
