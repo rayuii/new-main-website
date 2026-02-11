@@ -16,7 +16,7 @@
 			date: '2026-02-10',
 			excerpt: 'hey, i\'m sundei. welcome to my little space on the web where i dump thoughts, projects, and whatever else feels worth remembering.',
 			slug: 'welcome',
-			banner: 'https://static-cdn.jtvnw.net/twitch-clips-thumbnails-prod/MoistSplendidDaikonGivePLZ-rpocgIoqXQkx7pi4/fd0ab4f0-e35d-4c3f-9cf3-72ee9fbb6a81/preview.jpg'
+			banner: 'https://cdn.sundei.eu/banner1.png'
 		}
 	];
 </script>

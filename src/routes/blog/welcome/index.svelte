@@ -12,7 +12,7 @@
 		title: 'welcome to my corner of the internet',
 		date: '2026-02-10',
 		excerpt: 'An introduction to who I am, what I do, and why this blog exists.',
-		banner: 'https://static-cdn.jtvnw.net/twitch-clips-thumbnails-prod/MoistSplendidDaikonGivePLZ-rpocgIoqXQkx7pi4/fd0ab4f0-e35d-4c3f-9cf3-72ee9fbb6a81/preview.jpg'
+		banner: 'https://cdn.sundei.eu/banner1.png'
 	};
 
 	let showModal = false;

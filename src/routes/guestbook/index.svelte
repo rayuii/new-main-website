@@ -79,26 +79,25 @@
 	}
 
 	function formatDate(dateStr: string): string {
-		const date = new Date(dateStr);
-		return date.toLocaleDateString('en-US', {
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric'
-		});
-	}
+        return new Date(dateStr).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+    }
 
-	function timeAgo(dateStr: string): string {
-		const diff = Date.now() - new Date(dateStr).getTime();
-		const minutes = Math.floor(diff / 60000);
-		const hours = Math.floor(diff / 3600000);
-		const days = Math.floor(diff / 86400000);
-		
-		if (minutes < 1) return 'just now';
-		if (minutes < 60) return `${minutes}m ago`;
-		if (hours < 24) return `${hours}h ago`;
-		if (days < 7) return `${days}d ago`;
-		return formatDate(dateStr);
-	}
+    function timeAgo(dateStr: string): string {
+        const diff = Date.now() - new Date(dateStr).getTime();
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+
+        if (minutes < 1) return 'just now';
+        if (minutes < 60) return `${minutes}m ago`;
+        if (hours < 24) return `${hours}h ago`;
+        if (days < 7) return `${days}d ago`;
+        return formatDate(dateStr);
+    }
 </script>
 
 <svelte:head>
@@ -201,7 +200,7 @@
 								{entry.name}
 							</span>
 							<span class="text-ocean-500 dark:text-ocean-600 text-xs">
-								{timeAgo(entry.createdAt)}
+								{timeAgo(entry.created_at)}
 							</span>
 						</div>
 						<p class="text-ocean-800 dark:text-ocean-300 text-sm whitespace-pre-wrap break-words">
