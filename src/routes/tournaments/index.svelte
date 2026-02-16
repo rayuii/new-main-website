@@ -35,23 +35,25 @@
 			year: '2025',
 			events: [
 				{ name: 'Strongest ASCII Battlegrounds', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2104987', hosts: [{ name: 'Melodieyy-', id: 33526381 }], banner: 'http://swooo.sh/FLUV6w.png' },
-				{ name: 'Sandri Showdown', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2136853', hosts: [{ name: 'cedru', id: 10162611 }], banner: 'https://i.ppy.sh/66dd7b44672e74d1076b3cc209135972e6df0adb/68747470733a2f2f63656472752e732d756c2e65752f41364a7878317235' }
+				{ name: 'Sandri Showdown', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2136853', hosts: [{ name: 'cedru', id: 10162611 }], banner: 'https://sundei.ee/tournaments/cedru-showdown.webp' }
 			]
 		},
 		{
 			year: '2025/2026',
 			events: [
-				{ name: 'Latvian osu! LAN Tournament', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2137587', hosts: [{ name: 'Joyy', id: 14084526 }], banner: 'https://wybin.xyz/uploads/tournaments/lolt2026winter/header-image-lolt2026winter-8982ad20.webp' },
-				{ name: 'Nordic & Baltic Duo Tournament', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2151572', hosts: [{ name: 'Laurus', id: 20373027 }, { name: 'nik', id: 10077264 }], banner: 'https://i.ppy.sh/f1dee50e3d1f3c2e7c2ceb8d91a8b9740aac189c/68747470733a2f2f6e696b6f6c6f6d6172612e732d756c2e65752f534e6161356b71552e706e67' },
-				{ name: 'osu! 6 digit Tournament', role: 'referee/caster', link: 'https://osu.ppy.sh/community/forums/topics/2139437', hosts: [{ name: 'FrenchFemboy', id: 15875416 }, { name: 'Scream10', id: 16131822 }, { name: 'Ninbsa', id: 20024996 }], banner: 'https://assets.ppy.sh/topic-covers/14821/9c31302d6509308ec4dcd527c41aea7e97e672a6a4bea0ade2a5e44d0e14d432.png' }
+				{ name: 'Latvian osu! LAN Tournament', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2137587', hosts: [{ name: 'Joyy', id: 14084526 }], banner: 'https://sundei.ee/tournaments/lolt2026.webp' },
+				{ name: 'Nordic & Baltic Duo Tournament', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2151572', hosts: [{ name: 'Laurus', id: 20373027 }, { name: 'nik', id: 10077264 }], banner: 'https://sundei.ee/tournaments/nbd2025.png' },
+				{ name: 'osu! 6 digit Tournament', role: 'referee/caster', link: 'https://osu.ppy.sh/community/forums/topics/2139437', hosts: [{ name: 'FrenchFemboy', id: 15875416 }, { name: 'Scream10', id: 16131822 }, { name: 'Ninbsa', id: 20024996 }], banner: 'https://sundei.ee/tournaments/6digwc.png' }
 			]
 		},
 		{
 			year: '2026',
 			events: [
-				{ name: '5EC Minor League', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2160276', hosts: [{ name: 'jojo_flower', id: 28236847 }, { name: 'Neko4ka', id: 36036411 }], banner: 'https://i.ppy.sh/d3ee87526a932f3fb2e96ddfa92f9ac77a6307d9/68747470733a2f2f7a6978782e732d756c2e65752f6b68555650366e47'},
-				{ name: 'Battle of The Box 2026', role: 'referee(/commentator [pending])', link: 'https://osu.ppy.sh/community/forums/topics/2178368?n=1', hosts: [{ name: 'xootynator', id: 3717598 }, { name: 'Fulserish', id: 14252162 }], banner: 'https://i.ppy.sh/274e3ceed9f5c5900b6c73034a15b88d278cfbd5/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313434373337333531313532393333323739382f313436353538393931363939333036303839342f62616e6e65722e706e673f65783d36393862373462392669733d363938613233333926686d3d30396238656462663230336233316234653563333165303132623762653463336130666666626535663432626432636532643538623861353364373137613534263d26666f726d61743d77656270267175616c6974793d6c6f73736c657373' },
-				{ name: 'Fun Awesome Relax Tournament', role: 'referee/commentator/playtester', link: 'http://osu.ppy.sh/community/forums/topics/2166712', hosts: [{ name: 'birbisc', id: 30403970 }], banner: 'https://i.ppy.sh/b56806281790c5b19cb562cedb51ea684b72069d/68747470733a2f2f626972626973632e732d756c2e65752f38676c6670444f30'}
+				{ name: '5EC Minor League', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2160276', hosts: [{ name: 'jojo_flower', id: 28236847 }, { name: 'Neko4ka', id: 36036411 }], banner: 'https://sundei.ee/tournaments/5ecml.jpg'},
+				{ name: 'Battle of The Box 2026', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2178368?n=1', hosts: [{ name: 'xootynator', id: 3717598 }, { name: 'Fulserish', id: 14252162 }], banner: 'https://sundei.ee/tournaments/botb2026.webp' },
+				{ name: 'Fun Awesome Relax Tournament', role: 'referee/commentator/playtester', link: 'https://osu.ppy.sh/community/forums/topics/2166712', hosts: [{ name: 'birbisc', id: 30403970 }], banner: 'https://sundei.ee/tournaments/fart2026.png'},
+				{ name: 'The Oceanic Cup', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2179025?n=1', hosts: [{ name: 'mrekk', id: 7562902 }, { name: 'Gala', id: 3385634 }], banner: 'https://sundei.ee/tournaments/oceanic-cup.png'}
+
 			]
 		}
 	];
