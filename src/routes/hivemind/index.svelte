@@ -32,8 +32,8 @@
     </div>
     <div class="flex flex-row gap-8 justify-center" in:fly={{ y: 20, duration: 300, delay: 100 }}>
       <!-- Add your images below -->
-      <img src="https://sundei.ee/hivemind1.png" alt="Image 1" class="max-w-xs rounded shadow" />
-      <img src="https://sundei.ee/hivemind2.png" alt="Image 2" class="max-w-xs rounded shadow" />
+      <img src="https://sundei.ee/hivemind1.png" alt="Image 1" class="max-w-xs w-80 rounded shadow" />
+      <img src="https://sundei.ee/hivemind2.png" alt="Image 2" class="max-w-xs w-80 rounded shadow object-contain" />
     </div>
   </div>
 </section>
