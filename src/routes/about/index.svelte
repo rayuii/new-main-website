@@ -174,11 +174,13 @@
 						in:fly={{ y: 15, duration: 220, delay: 250 + i * 60 }}
 					>
 						{#if item.image}
-							<div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-ocean-200/40 dark:bg-ocean-800/40 flex items-center justify-center">
+							<div
+								class="group w-full aspect-[4/3] rounded-xl overflow-hidden bg-ocean-200/40 dark:bg-ocean-800/40 flex items-center justify-center"
+							>
 								<img
 									src={item.image}
 									alt={item.label}
-									class="w-full h-full object-contain"
+									class="w-full h-full object-contain transition-transform duration-200 ease-out group-hover:scale-105"
 									loading="lazy"
 								/>
 							</div>
@@ -214,11 +216,13 @@
 						in:fly={{ y: 15, duration: 220, delay: 280 + i * 60 }}
 					>
 						{#if item.image}
-							<div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-ocean-200/40 dark:bg-ocean-800/40 flex items-center justify-center">
+							<div
+								class="group w-full aspect-[4/3] rounded-xl overflow-hidden bg-ocean-200/40 dark:bg-ocean-800/40 flex items-center justify-center"
+							>
 								<img
 									src={item.image}
 									alt={item.label}
-									class="w-full h-full object-contain"
+									class="w-full h-full object-contain transition-transform duration-200 ease-out group-hover:scale-105"
 									loading="lazy"
 								/>
 							</div>
