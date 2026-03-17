@@ -11,7 +11,6 @@
 	import OsuTooltip from '$lib/components/OsuTooltip.svelte';
 	import { getCodeData } from '$lib/rpcUtils';
 	import { useLanyard } from 'sk-lanyard';
-	import { onMount } from 'svelte';
 	import { onMount, onDestroy } from 'svelte';
 
 	// ── types ──────────────────────────────────────────────────────────────
