@@ -27,23 +27,24 @@ export const GET: RequestHandler = async ({ fetch, platform }) => {
   };
 
   try {
-    const playing = await api.player.getCurrentlyPlaying();
+    // this is the ts-sdk wrapper for /me/player
+    const playback = await api.player.getPlaybackState(); // <— FIX HERE [web:41][web:35]
 
-    if (playing && playing.item && playing.currently_playing_type === 'track') {
+    if (playback && playback.item && playback.currently_playing_type === 'track') {
       return new Response(
         JSON.stringify({
           ...base,
           isPlayingNow: true,
-          isPaused: !playing.is_playing,
-          progressMs: playing.progress_ms ?? 0,
-          track: playing.item as SpotifyApi.TrackObjectFull
+          isPaused: !playback.is_playing,
+          progressMs: playback.progress_ms ?? 0,
+          track: playback.item as SpotifyApi.TrackObjectFull
         }),
         { headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // fallback: reuse your recent-tracks logic
-    const recentlyPlayed = await api.player.getRecentlyPlayedTracks(1);
+    // fallback to your existing recent-tracks call
+    const recentlyPlayed = await api.player.getRecentlyPlayedTracks(1); // [web:33]
     const item = recentlyPlayed.items[0];
     if (item?.track) {
       return new Response(
