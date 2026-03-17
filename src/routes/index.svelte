@@ -12,6 +12,7 @@
 	import { getCodeData } from '$lib/rpcUtils';
 	import { useLanyard } from 'sk-lanyard';
 	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 
 	// ── types ──────────────────────────────────────────────────────────────
 	interface PrimaryGuild { tag: string; badge: string; identity_guild_id: string; identity_enabled: boolean; }
@@ -108,6 +109,42 @@
 	// ── spotify ────────────────────────────────────────────────────────────
 	let lastPlayedTrack: any = null;
 
+	// NEW: now playing state (from /api/now-playing)
+	interface NowPlayingResponse {
+		isPlayingNow: boolean;
+		isPaused: boolean;
+		progressMs: number;
+		track: SpotifyApi.TrackObjectFull | null;
+	}
+
+	let nowPlaying: NowPlayingResponse | null = null;
+	let nowPlayingTime = 0;
+	let nowPlayingStarted = 0;
+	let nowPlayingPollId: ReturnType<typeof setInterval>;
+	let nowPlayingTickId: ReturnType<typeof setInterval>;
+
+	function formatDuration(ms: number) {
+		const seconds = Math.floor((ms / 1000) % 60).toString().padStart(2, '0');
+		const minutes = Math.floor(ms / 1000 / 60);
+		return `${minutes}:${seconds}`;
+	}
+
+	async function loadNowPlaying() {
+		try {
+			const r = await fetch('/api/now-playing');
+			if (!r.ok) return;
+			const d: NowPlayingResponse = await r.json();
+			nowPlaying = d;
+			if (d.track) {
+				nowPlayingStarted = Date.now();
+				nowPlayingTime = d.progressMs ?? 0;
+			}
+		} catch {
+			// ignore
+		}
+	}
+
+
 	// helper used in template to avoid inline (a: any) callbacks
 	function artistNames(artists: any[]): string {
 		return (artists ?? []).map((a: any) => a.name).join(', ');
@@ -130,12 +167,12 @@
 	}
 
 	let romanizedSong = '', romanizedArtist = '', romanizedAlbum = '', romanizedLastSong = '', romanizedLastArtist = '';
-	$: if (d?.spotify?.song) romanizeText(d.spotify.song).then(r => romanizedSong = r);
-	$: if (d?.spotify?.artist) romanizeText(d.spotify.artist).then(r => romanizedArtist = r);
-	$: if (d?.spotify?.album) romanizeText(d.spotify.album).then(r => romanizedAlbum = r);
-	$: if (lastPlayedTrack?.track?.name) romanizeText(lastPlayedTrack.track.name).then(r => romanizedLastSong = r);
-	$: if (lastPlayedTrack?.track?.artists) romanizeText(artistNames(lastPlayedTrack.track.artists)).then(r => romanizedLastArtist = r);
+	$: if (nowPlaying?.track?.name) romanizeText(nowPlaying.track.name).then(r => (romanizedSong = r));
+	$: if (nowPlaying?.track?.artists) romanizeText(artistNames(nowPlaying.track.artists)).then(r => (romanizedArtist = r));
+	$: if (nowPlaying?.track?.album?.name) romanizeText(nowPlaying.track.album.name).then(r => (romanizedAlbum = r));
 
+	$: if (lastPlayedTrack?.track?.name) romanizeText(lastPlayedTrack.track.name).then(r => (romanizedLastSong = r));
+	$: if (lastPlayedTrack?.track?.artists) romanizeText(artistNames(lastPlayedTrack.track.artists)).then(r => (romanizedLastArtist = r));
 	// ── osu! ───────────────────────────────────────────────────────────────
 	const OSU_APP_IDS = new Set(['1216669957799018608', '367827983903490050']);
 	const OSU_SELF_USERNAME = 'de diepte';
@@ -191,7 +228,32 @@
 	}
 
 	onMount(async () => {
-		try { const r = await fetch('/api/recent-tracks'); if (r.ok) lastPlayedTrack = await r.json(); } catch {}
+		try {
+			const r = await fetch('/api/recent-tracks');
+			if (r.ok) lastPlayedTrack = await r.json();
+		} catch {}
+
+		// start now-playing polling and timer
+		loadNowPlaying();
+		nowPlayingPollId = setInterval(loadNowPlaying, 5000);
+
+		nowPlayingTickId = setInterval(() => {
+			if (!nowPlaying?.track) return;
+			if (nowPlaying.isPaused) {
+				nowPlayingTime = nowPlaying.progressMs;
+			} else {
+				const elapsed = Date.now() - nowPlayingStarted;
+				nowPlayingTime = Math.min(
+					nowPlaying.progressMs + elapsed,
+					nowPlaying.track.duration_ms
+				);
+			}
+		}, 100);
+	});
+
+	onDestroy(() => {
+		clearInterval(nowPlayingPollId);
+		clearInterval(nowPlayingTickId);
 	});
 </script>
 
@@ -299,35 +361,40 @@
 			</div>
 		{/if}
 
-		{#if d?.spotify}
+		{#if nowPlaying?.track}
 			<div class="flex flex-col items-start sm:items-end gap-2">
 				<div class="flex items-center gap-3 sm:flex-row-reverse">
-					{#if d.spotify.album_art_url}
-						<img src={d.spotify.album_art_url} alt="Album art" class="w-16 h-16 rounded shadow-lg" />
+					{#if nowPlaying.track.album?.images?.[0]?.url}
+						<img src={nowPlaying.track.album.images[0].url} alt="Album art" class="w-16 h-16 rounded shadow-lg" />
 					{/if}
 					<div class="flex flex-col items-start sm:items-end">
-						<a href="https://open.spotify.com/track/{d.spotify.track_id}" target="_blank" rel="noopener noreferrer" class="text-ocean-900 dark:text-ocean-100 hover:underline">
-							{romanizedSong || d.spotify.song}
+						<a
+							href={nowPlaying.track.external_urls.spotify}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-ocean-900 dark:text-ocean-100 hover:underline"
+						>
+							{romanizedSong || nowPlaying.track.name}
 						</a>
-						<span class="text-ocean-800 dark:text-ocean-300">{romanizedArtist || d.spotify.artist}</span>
-						<span class="text-ocean-700 dark:text-ocean-400">{romanizedAlbum || d.spotify.album}</span>
+						<span class="text-ocean-800 dark:text-ocean-300">
+							{romanizedArtist || artistNames(nowPlaying.track.artists)}
+						</span>
+						<span class="text-ocean-700 dark:text-ocean-400">
+							{romanizedAlbum || nowPlaying.track.album.name}
+						</span>
 					</div>
 				</div>
-				{#if d.spotify.timestamps}
-					{@const elapsed = now.getTime() - d.spotify.timestamps.start}
-					{@const total = d.spotify.timestamps.end - d.spotify.timestamps.start}
-					{@const progress = Math.min(100, (elapsed / total) * 100)}
-					{@const elapsedMin = Math.floor(elapsed / 60000)}
-					{@const elapsedSec = Math.floor((elapsed % 60000) / 1000)}
-					{@const totalMin = Math.floor(total / 60000)}
-					{@const totalSec = Math.floor((total % 60000) / 1000)}
-					<span class="text-ocean-700 dark:text-ocean-400 text-sm">
-						{elapsedMin}:{elapsedSec.toString().padStart(2, '0')} / {totalMin}:{totalSec.toString().padStart(2, '0')}
-					</span>
-					<div class="w-full max-w-[200px] h-1 bg-ocean-300 dark:bg-ocean-700 rounded-full overflow-hidden">
-						<div class="h-full bg-ocean-700 dark:bg-ocean-300 transition-all duration-100" style="width: {progress}%"></div>
-					</div>
-				{/if}
+
+				<!-- timer + progress bar like old React component -->
+				<span class="text-ocean-700 dark:text-ocean-400 text-sm">
+					{formatDuration(nowPlayingTime)} / {formatDuration(nowPlaying.track.duration_ms)}
+				</span>
+				<div class="w-full max-w-[200px] h-1 bg-ocean-300 dark:bg-ocean-700 rounded-full overflow-hidden">
+					<div
+						class="h-full bg-ocean-700 dark:bg-ocean-300 transition-all duration-100"
+						style={`width: ${(nowPlayingTime / nowPlaying.track.duration_ms) * 100}%`}
+					></div>
+				</div>
 			</div>
 		{:else if lastPlayedTrack}
 			<div class="flex flex-col items-start sm:items-end gap-2">
@@ -350,6 +417,7 @@
 				</div>
 			</div>
 		{/if}
+
 
 		{#each visibleActivities as activity}
 			{@const isTwitch = activity.name?.toLowerCase().includes('twitch') || activity.application_id === '802958789555781663'}
