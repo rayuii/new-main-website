@@ -8,17 +8,94 @@
 		mounted = true;
 	});
 
-	const specs = [
-		{ label: 'cpu', value: 'i5-13400F' },
-		{ label: 'gpu', value: 'NVIDIA Geforce RTX 3060 12GB' },
-		{ label: 'ram', value: '64 GB DDR4' },
-		{ label: 'storage', value: 'Samsung 990 PRO 1TB, Seagate Barracuda 2TB' },
-		{ label: 'motherboard', value: 'ASRock B760M Pro RS/D4 WiFi' },
-		{ label: 'monitor', value: 'Lenovo Legion 24-10' },
-		{ label: 'keyboard', value: 'Wooting 60HE' },
-		{ label: 'mouse', value: 'Logitech PRO 2 LIGHTSPEED' },
-		{ label: 'tablet', value: 'Wacom CTL-472' },
-		{ label: 'os', value: 'Classic 7 (Forced to use Win11 for now)' }
+	const pcSpecs = [
+		{
+			label: 'processor',
+			value: 'i5-13400F',
+			sub: '10c / 16t • up to 4.6 GHz',
+			image: '/images/pcbuild/13400f.png'
+		},
+		{
+			label: 'graphics card',
+			value: 'GeForce RTX 3060 12GB',
+			sub: 'asus • 12GB gddr6',
+			image: '/images/pcbuild/rtx3060.png'
+		},
+		{
+			label: 'memory',
+			value: '4x16GB DDR4',
+			sub: 'xmp certified • 3200 MT/s',
+			image: '/images/pcbuild/memory.png'
+		},
+		{
+			label: 'main nvme',
+			value: 'Samsung 990 PRO 1TB',
+			sub: 'gen4 • ~7,000 MB/s',
+			image: '/images/pcbuild/samsung.png'
+		},
+		{
+			label: 'additional storage',
+			value: 'Seagate Barracuda',
+			sub: '2tb • 7200 rpm hdd',
+			image: '/images/pcbuild/barracuda.png'
+		},
+		{
+			label: 'backup storage',
+			value: 'Western Digital Blue',
+			sub: '2x500GB • sata',
+			image: '/images/pcbuild/wd.png'
+		},
+		{
+			label: 'motherboard',
+			value: 'ASRock B760M Pro RS/D4 WiFi',
+			sub: 'lga1700 • matx • wi‑fi',
+			image: '/images/pcbuild/b760m.png'
+		},
+		{
+			label: 'cooling',
+			value: 'NZXT Kraken 240',
+			sub: '240mm aio • customizable screen',
+			image: '/images/pcbuild/kraken.png'
+		},
+		{
+			label: 'chassis',
+			value: 'NZXT H5 Elite',
+			sub: 'matx • tempered glass',
+			image: '/images/pcbuild/h5-elite.png'
+		}
+	];
+
+	const peripheralSpecs = [
+		{
+			label: 'monitor',
+			value: 'Lenovo Legion 24-10',
+			sub: '1080p • 240 Hz',
+			image: '/images/peripherals/main-lenovo.png'
+		},
+		{
+			label: 'keyboard',
+			value: 'Wooting 60HE',
+			sub: 'hall effect • analog • rapid trigger',
+			image: '/images/peripherals/wooting.png'
+		},
+		{
+			label: 'mouse',
+			value: 'Logitech PRO 2 LIGHTSPEED',
+			sub: '25k sensor • wireless',
+			image: '/images/peripherals/mouse.png'
+		},
+		{
+			label: 'tablet',
+			value: 'Wacom CTL-472',
+			sub: 'the osu tablet • stan full area',
+			image: '/images/peripherals/ctl472.png'
+		},
+		{
+			label: 'headphones',
+			value: 'Sony WH-1000XM4',
+			sub: 'active noise cancellation • wireless',
+			image: '/images/peripherals/xm4.png'
+		}
 	];
 
 	const interests = [
@@ -84,24 +161,86 @@
 			</div>
 		</div>
 
-		<!-- Setup -->
-		<div 
+		<!-- PC build -->
+		<div
 			class="mb-10"
 			in:fly={{ y: 20, duration: 300, delay: 200 }}
 		>
-			<h2 class="text-ocean-900 dark:text-ocean-100 text-lg mb-3">pc specs</h2>
-			<div class="grid grid-cols-2 gap-2">
-				{#each specs as item, i}
-					<div 
-						class="border border-ocean-300 dark:border-ocean-700 rounded p-3"
-						in:fly={{ x: -10, duration: 200, delay: 250 + i * 50 }}
+			<h2 class="text-ocean-900 dark:text-ocean-100 text-lg mb-3">pc build</h2>
+			<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+				{#each pcSpecs as item, i}
+					<div
+						class="rounded-2xl border border-ocean-300/70 dark:border-ocean-700/70 bg-ocean-100/40 dark:bg-ocean-900/40 p-4 flex flex-col gap-3 shadow-sm"
+						in:fly={{ y: 15, duration: 220, delay: 250 + i * 60 }}
 					>
-						<span class="text-ocean-600 dark:text-ocean-500 text-xs">{item.label}</span>
-						<p class="text-ocean-900 dark:text-ocean-100 text-sm">{item.value}</p>
+						{#if item.image}
+							<div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-ocean-200/40 dark:bg-ocean-800/40 flex items-center justify-center">
+								<img
+									src={item.image}
+									alt={item.label}
+									class="w-full h-full object-contain"
+									loading="lazy"
+								/>
+							</div>
+						{/if}
+						<div>
+							<p class="text-[0.7rem] uppercase tracking-wide text-ocean-600 dark:text-ocean-500">
+								{item.label}
+							</p>
+							<p class="text-ocean-900 dark:text-ocean-100 text-sm leading-snug">
+								{item.value}
+							</p>
+							{#if item.sub}
+								<p class="text-[0.7rem] text-ocean-600 dark:text-ocean-500 mt-1">
+									{item.sub}
+								</p>
+							{/if}
+						</div>
 					</div>
 				{/each}
 			</div>
 		</div>
+
+		<!-- Peripherals -->
+		<div
+			class="mb-10"
+			in:fly={{ y: 20, duration: 300, delay: 260 }}
+		>
+			<h2 class="text-ocean-900 dark:text-ocean-100 text-lg mb-3">peripherals</h2>
+			<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+				{#each peripheralSpecs as item, i}
+					<div
+						class="rounded-2xl border border-ocean-300/70 dark:border-ocean-700/70 bg-ocean-100/40 dark:bg-ocean-900/40 p-4 flex flex-col gap-3 shadow-sm"
+						in:fly={{ y: 15, duration: 220, delay: 280 + i * 60 }}
+					>
+						{#if item.image}
+							<div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-ocean-200/40 dark:bg-ocean-800/40 flex items-center justify-center">
+								<img
+									src={item.image}
+									alt={item.label}
+									class="w-full h-full object-contain"
+									loading="lazy"
+								/>
+							</div>
+						{/if}
+						<div>
+							<p class="text-[0.7rem] uppercase tracking-wide text-ocean-600 dark:text-ocean-500">
+								{item.label}
+							</p>
+							<p class="text-ocean-900 dark:text-ocean-100 text-sm leading-snug">
+								{item.value}
+							</p>
+							{#if item.sub}
+								<p class="text-[0.7rem] text-ocean-600 dark:text-ocean-500 mt-1">
+									{item.sub}
+								</p>
+							{/if}
+						</div>
+					</div>
+				{/each}
+			</div>
+		</div>
+
 
 		<!-- Languages -->
 		<div 
