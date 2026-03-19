@@ -238,12 +238,19 @@
 
 		nowPlayingTickId = setInterval(() => {
 			if (!nowPlaying?.track) return;
+
+			// when not actively playing, just keep the raw progressMs (usually 0)
+			if (!nowPlaying.isPlayingNow) {
+				nowPlayingTime = nowPlaying.progressMs ?? 0;
+				return;
+			}
+
 			if (nowPlaying.isPaused) {
-				nowPlayingTime = nowPlaying.progressMs;
+				nowPlayingTime = nowPlaying.progressMs ?? 0;
 			} else {
 				const elapsed = Date.now() - nowPlayingStarted;
 				nowPlayingTime = Math.min(
-					nowPlaying.progressMs + elapsed,
+					(nowPlaying.progressMs ?? 0) + elapsed,
 					nowPlaying.track.duration_ms
 				);
 			}
@@ -360,7 +367,8 @@
 			</div>
 		{/if}
 
-		{#if nowPlaying?.track}
+		{#if nowPlaying?.track && nowPlaying.isPlayingNow}
+			<!-- actively playing: show progress bar -->
 			<div class="flex flex-col items-start sm:items-end gap-2">
 				<div class="flex items-center gap-3 sm:flex-row-reverse">
 					{#if nowPlaying.track.album?.images?.[0]?.url}
@@ -384,7 +392,6 @@
 					</div>
 				</div>
 
-				<!-- timer + progress bar like old React component -->
 				<span class="text-ocean-700 dark:text-ocean-400 text-sm">
 					{formatDuration(nowPlayingTime)} / {formatDuration(nowPlaying.track.duration_ms)}
 				</span>
@@ -396,6 +403,7 @@
 				</div>
 			</div>
 		{:else if lastPlayedTrack}
+			<!-- nothing playing: show last played info instead -->
 			<div class="flex flex-col items-start sm:items-end gap-2">
 				<span class="text-ocean-700 dark:text-ocean-400 text-sm">last played</span>
 				<div class="flex items-center gap-3 sm:flex-row-reverse">
@@ -403,7 +411,12 @@
 						<img src={lastPlayedTrack.track.album.images[0].url} alt="Album art" class="w-16 h-16 rounded shadow-lg" />
 					{/if}
 					<div class="flex flex-col items-start sm:items-end">
-						<a href={lastPlayedTrack.track?.external_urls?.spotify} target="_blank" rel="noopener noreferrer" class="text-ocean-900 dark:text-ocean-100 hover:underline">
+						<a
+							href={lastPlayedTrack.track?.external_urls?.spotify}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-ocean-900 dark:text-ocean-100 hover:underline"
+						>
 							{romanizedLastSong || lastPlayedTrack.track?.name}
 						</a>
 						<span class="text-ocean-800 dark:text-ocean-300">
@@ -416,7 +429,6 @@
 				</div>
 			</div>
 		{/if}
-
 
 		{#each visibleActivities as activity}
 			{@const isTwitch = activity.name?.toLowerCase().includes('twitch') || activity.application_id === '802958789555781663'}
