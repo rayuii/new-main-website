@@ -49,6 +49,15 @@
 		!a.name.toLowerCase().includes('spotify')
 	);
 
+	let copied = false;
+
+	function copyButtonCode() {
+		navigator.clipboard.writeText(
+		`<a href="https://sundei.ee/" target="_blank" rel="noopener noreferrer">\n  <img src="https://sundei.ee/sfa.gif" alt="the house of kwanmendments" style="image-rendering: pixelated; width: 88px; height: 31px;" />\n</a>`
+		);
+		copied = true;
+		setTimeout(() => copied = false, 2000);
+	}
 	// ── clock ──────────────────────────────────────────────────────────────
 	const timeZone = 'America/Vancouver';
 	const isTimeZoneSame = Intl.DateTimeFormat().resolvedOptions().timeZone === timeZone;
@@ -321,33 +330,21 @@
 				<ProjectItem href="mailto:sundei@sundei.ee" name="email" />
 			</ul>
 		</div>
-		<script>
-		let copied = false;
-
-		function copyButtonCode() {
-			navigator.clipboard.writeText(
-			`<a href="https://sundei.ee/" target="_blank" rel="noopener noreferrer">\n  <img src="https://sundei.ee/sfa.gif" alt="the house of kwanmendments" style="image-rendering: pixelated; width: 88px; height: 31px;" />\n</a>`
-			);
-			copied = true;
-			setTimeout(() => copied = false, 2000);
-		}
-		</script>
-
 		<div>
-		<h1 class="text-ocean-900 dark:text-ocean-100">friends</h1>
-		<div class="flex flex-wrap gap-1 mt-2">
-			<a href="https://nyoemii.dev/" target="_blank" rel="noopener noreferrer">
-			<img src="https://nyoemii.dev/media/img/button.png" alt="noemi's puppyhouse" class="h-[31px] w-[88px] image-pixelated" />
-			</a>
+			<h1 class="text-ocean-900 dark:text-ocean-100">friends</h1>
+			<div class="flex flex-wrap gap-1 mt-2">
+				<a href="https://nyoemii.dev/" target="_blank" rel="noopener noreferrer">
+				<img src="https://nyoemii.dev/media/img/button.png" alt="noemi's puppyhouse" class="h-[31px] w-[88px] image-pixelated" />
+				</a>
 
-			<button
-			on:click={copyButtonCode}
-			title={copied ? 'copied!' : 'copy embed code'}
-			class="cursor-pointer"
-			>
-			<img src="https://sundei.ee/sfa.gif" alt="the house of kwanmendments" class="h-[31px] w-[88px] image-pixelated" />
-			</button>
-		</div>
+				<button
+				on:click={copyButtonCode}
+				title={copied ? 'copied!' : 'copy embed code'}
+				class="cursor-pointer"
+				>
+				<img src="https://sundei.ee/sfa.gif" alt="the house of kwanmendments" class="h-[31px] w-[88px] image-pixelated" />
+				</button>
+			</div>
 		</div>
 		<div class="mt-4 w-full sm:w-96">
 			<h2 class="text-ocean-900 dark:text-ocean-100 text-lg mb-2">kwan wisdom</h2>

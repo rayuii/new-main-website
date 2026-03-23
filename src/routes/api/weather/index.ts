@@ -10,7 +10,7 @@ export async function GET() {
 		}
 
 		const url = new URL('https://api.openweathermap.org/data/2.5/weather');
-		url.searchParams.set('q', 'Amsterdam');
+		url.searchParams.set('q', 'Tartu');
 		url.searchParams.set('appid', WEATHER_API_KEY);
 		url.searchParams.set('units', 'metric');
 
