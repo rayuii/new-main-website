@@ -268,7 +268,7 @@
 				</a>
 			{/each}
 			
-			{#if !weatherLoading && weather.temp}
+			{#if !weatherLoading && weather.city}
 				<div class="flex items-center gap-1.5 border-l border-ocean-300 dark:border-ocean-700 pl-6 text-ocean-600 dark:text-ocean-400 text-xs">
 					{#if weather.icon}
 						<img 
@@ -282,7 +282,7 @@
 			{/if}
 
 			<!-- Dark mode toggle -->
-			<!--  <button
+			<button
 				on:click={toggleDarkMode}
 				class="border-l border-ocean-300 dark:border-ocean-700 pl-6 text-ocean-600 dark:text-ocean-400 hover:text-ocean-900 dark:hover:text-ocean-100 transition-colors"
 				aria-label="Toggle dark mode"
@@ -297,7 +297,7 @@
 					</svg>
 				{/if}
 			</button>
-			-->
+			
 			<!-- Theme switcher -->
 			<div class="relative border-l border-ocean-300 dark:border-ocean-700 pl-6 theme-switcher">
 				<button
