@@ -327,7 +327,7 @@
 
 		<!-- Mobile: weather + hamburger -->
 		<div class="flex sm:hidden items-center gap-3">
-			{#if !weatherLoading && weather.temp}
+			{#if !weatherLoading && weather.city}
 				<div class="flex items-center gap-1">
 					{#if weather.icon}
 						<img 
