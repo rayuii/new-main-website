@@ -53,8 +53,10 @@
 				{ name: 'Battle of The Box 2026', role: 'referee/commentator', link: 'https://osu.ppy.sh/community/forums/topics/2178368?n=1', hosts: [{ name: 'xootynator', id: 3717598 }, { name: 'Fulserish', id: 14252162 }], banner: 'https://sundei.ee/tournaments/Battle_of_the_Box_2026_Waifu_Cup.png' },
 				{ name: 'Fun Awesome Relax Tournament', role: 'referee/commentator/playtester', link: 'https://osu.ppy.sh/community/forums/topics/2166712', hosts: [{ name: 'birbisc', id: 30403970 }], banner: 'https://sundei.ee/tournaments/fart2026.png'},
 				{ name: 'The Oceanic Cup', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2179025?n=1', hosts: [{ name: 'mrekk', id: 7562902 }, { name: 'Gala', id: 3385634 }], banner: 'https://sundei.ee/tournaments/oceanic-cup.png'},
-				{ name: 'XTALotl\'s Skillcap Showdown', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2186485?n=1', hosts: [{ name: '-Axolotl', id: 12995368 }, { name: 'u__u', id: 13139356 }], banner: 'https://sundei.ee/tournaments/skillcap.png'}
-
+				{ name: 'XTALotl\'s Skillcap Showdown', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2186485?n=1', hosts: [{ name: '-Axolotl', id: 12995368 }, { name: 'u__u', id: 13139356 }], banner: 'https://sundei.ee/tournaments/skillcap.png'},
+				{ name: 'Lebron James Suiji', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2195943?n=1', hosts: [{ name: 'townes', id: 21063408 }, { name: 'MR JEFFERY', id: 16036374 }, { name: 'arekk', id: 16085078 }], banner: 'https://sundei.ee/tournaments/lebron-suiji.png'},
+				{ name: 'Sweden Cup 2026', role: 'streamer', link: 'https://osu.ppy.sh/community/forums/topics/2198246?n=1', hosts: [{ name: 'Geometryville', id: 18272338 }], banner: 'https://sundei.ee/tournaments/sweden-cup-26.png'},
+				{ name: 'Shuffle Squad Rumble', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2190446?n=1', hosts: [{ name: 'Molidis', id: 16813846 }, { name: 'Tey', id: 18352115 }, { name: 'Helyana', id: 7921863 }], banner: 'https://sundei.ee/tournaments/ssr-suiji.png'}
 			]
 		}
 	];
