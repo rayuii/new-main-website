@@ -55,6 +55,7 @@
 				{ name: 'The Oceanic Cup', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2179025?n=1', hosts: [{ name: 'mrekk', id: 7562902 }, { name: 'Gala', id: 3385634 }], banner: 'https://sundei.ee/tournaments/oceanic-cup.png'},
 				{ name: 'XTALotl\'s Skillcap Showdown', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2186485?n=1', hosts: [{ name: '-Axolotl', id: 12995368 }, { name: 'u__u', id: 13139356 }], banner: 'https://sundei.ee/tournaments/skillcap.png'},
 				{ name: 'Lebron James Suiji', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2195943?n=1', hosts: [{ name: 'townes', id: 21063408 }, { name: 'MR JEFFERY', id: 16036374 }, { name: 'arekk', id: 16085078 }], banner: 'https://sundei.ee/tournaments/lebron-suiji.png'},
+				{ name: 'Fin\'s All Mode Event', role: 'referee/commentator', link: 'https://osu.ppy.sh/community/forums/topics/2192013?n=1', hosts: [{ name: 'fhz', id: 13660273 }, { name: 'ZeroKungz', id: 23155757 }], banner: 'https://sundei.ee/tournaments/fame.png'},
 				{ name: 'Sweden Cup 2026', role: 'streamer', link: 'https://osu.ppy.sh/community/forums/topics/2198246?n=1', hosts: [{ name: 'Geometryville', id: 18272338 }], banner: 'https://sundei.ee/tournaments/sweden-cup-26.png'},
 				{ name: 'Shuffle Squad Rumble', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2190446?n=1', hosts: [{ name: 'Molidis', id: 16813846 }, { name: 'Tey', id: 18352115 }, { name: 'Helyana', id: 7921863 }], banner: 'https://sundei.ee/tournaments/ssr-suiji.png'}
 			]
