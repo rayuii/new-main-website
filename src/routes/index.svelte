@@ -183,7 +183,7 @@
 	$: if (lastPlayedTrack?.track?.artists) romanizeText(artistNames(lastPlayedTrack.track.artists)).then(r => (romanizedLastArtist = r));
 	// ── osu! ───────────────────────────────────────────────────────────────
 	const OSU_APP_IDS = new Set(['1216669957799018608', '367827983903490050']);
-	const OSU_SELF_USERNAME = 'de diepte';
+	const OSU_SELF_USERNAME = 'sodanator';
 
 	function isOsuActivity(a: Activity): boolean {
 		return OSU_APP_IDS.has(a.application_id ?? '') || a.name === 'osu!';
