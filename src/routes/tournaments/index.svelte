@@ -50,7 +50,7 @@
 			year: '2026',
 			events: [
 				{ name: '5EC Minor League', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2160276', hosts: [{ name: 'jojo_flower', id: 28236847 }, { name: 'Neko4ka', id: 36036411 }], banner: 'https://sundei.ee/tournaments/5ecml.jpg'},
-				{ name: 'Battle of The Box 2026', role: 'referee/commentator', link: 'https://osu.ppy.sh/community/forums/topics/2178368?n=1', hosts: [{ name: 'xootynator', id: 3717598 }, { name: 'Fulserish', id: 14252162 }], banner: 'https://sundei.ee/tournaments/Battle_of_the_Box_2026_Waifu_Cup.png' },
+				{ name: 'Battle of The Box 2026', role: 'referee/commentator', link: 'https://osu.ppy.sh/community/forums/topics/2178368?n=1', hosts: [{ name: 'xootynator', id: 3717598 }, { name: 'Fulserish', id: 14252162 }], banner: 'https://sundei.ee/tournaments/Battle_of_the_Box_2026_Waifu_Cup.png', badge: 'https://sundei.ee/badges/botb2026-winner.png' },
 				{ name: 'Fun Awesome Relax Tournament', role: 'referee/commentator/playtester', link: 'https://osu.ppy.sh/community/forums/topics/2166712', hosts: [{ name: 'birbisc', id: 30403970 }], banner: 'https://sundei.ee/tournaments/fart2026.png'},
 				{ name: 'The Oceanic Cup', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2179025?n=1', hosts: [{ name: 'mrekk', id: 7562902 }, { name: 'Gala', id: 3385634 }], banner: 'https://sundei.ee/tournaments/oceanic-cup.png'},
 				{ name: 'XTALotl\'s Skillcap Showdown', role: 'referee', link: 'https://osu.ppy.sh/community/forums/topics/2186485?n=1', hosts: [{ name: '-Axolotl', id: 12995368 }, { name: 'u__u', id: 13139356 }], banner: 'https://sundei.ee/tournaments/skillcap.png'},
